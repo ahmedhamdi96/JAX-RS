@@ -25,7 +25,7 @@ public class Email {
         this.emailId = emailId;
     }
 
-    public Employee getEemployee() {
+    public Employee getEmployee() {
         return employee;
     }
 

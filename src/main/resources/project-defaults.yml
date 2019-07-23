@@ -35,3 +35,9 @@ swarm:
         connection-url: jdbc:mysql://localhost:3306/AUTHDB
         user-name: root
         password: root
+
+      programdb:
+        driver-name: com.mysql
+        connection-url: jdbc:mysql://localhost:3306/PROGRAMDB
+        user-name: root
+        password: root

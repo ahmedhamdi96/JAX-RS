@@ -2,41 +2,31 @@ package com.sumerge.program.managers;
 
 import com.sumerge.program.entities.Address;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.ejb.Stateless;
+import javax.persistence.*;
+import java.util.Collection;
 
+@Stateless
 public class AddressManager {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("programdb-pu");
+    @PersistenceContext(unitName = "programdb-pu")
+    private EntityManager entityManager;
 
     public Address createAddress(Address address){
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction  entityTransaction =  entityManager.getTransaction();
+         return entityManager.merge(address);
+    }
 
-        entityTransaction.begin();
-        entityManager.persist(address);
-        entityTransaction.commit();
-
-        entityManager.close();
-        return address;
+    public Collection<Address> readAllAddresses() {
+        return entityManager.createQuery("SELECT x FROM Address x", Address.class).
+                getResultList();
     }
 
     public Address readAddress(Integer addressID){
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
         Address address = entityManager.find( Address.class, addressID);
-
-        entityManager.close();
         return address;
     }
 
     public Address updateAddress(Address addressNew){
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction  entityTransaction =  entityManager.getTransaction();
-
-        entityTransaction.begin();
         Address addressDB = entityManager.find( Address.class, addressNew.getAddressID());
         addressDB.setEmployee(addressNew.getEmployee());
         addressDB.setAddLine1(addressNew.getAddLine1());
@@ -45,22 +35,13 @@ public class AddressManager {
         addressDB.setRegion(addressNew.getRegion());
         addressDB.setCountry(addressNew.getCountry());
         addressDB.setPostcode(addressNew.getPostcode());
-        entityTransaction.commit();
-
-        entityManager.close();
-        return addressDB;
+        return entityManager.merge(addressDB);
     }
 
     public String deleteAddress(Integer addressID){
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction  entityTransaction =  entityManager.getTransaction();
-
-        entityTransaction.begin();
         Address address = entityManager.find( Address.class, addressID);
         entityManager.remove(address);
-        entityTransaction.commit();
 
-        entityManager.close();
         return "Address Deleted Successfully.";
     }
 

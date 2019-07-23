@@ -1,7 +1,7 @@
 package com.sumerge.program.rest;
 
-import com.sumerge.program.entities.Address;
-import com.sumerge.program.managers.AddressManager;
+import com.sumerge.program.entities.Photo;
+import com.sumerge.program.managers.PhotoManager;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -23,18 +23,18 @@ import javax.ws.rs.Produces;
 @RequestScoped
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
-@Path("address")
-public class AddressResources {
+@Path("photo")
+public class PhotoResources {
 
     private static final Logger LOGGER = Logger.getLogger(UserResources.class.getName());
     @EJB
-    private AddressManager addressManager;
+    private PhotoManager photoManager;
 
     @POST
-    public Response postAddress(Address address) {
+    public Response postPhoto(Photo photo) {
         try {
             return Response.ok().
-                    entity(addressManager.createAddress(address)).
+                    entity(photoManager.createPhoto(photo)).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -45,10 +45,10 @@ public class AddressResources {
     }
 
     @GET
-    public Response getAllAddresses() {
+    public Response getAllPhotos() {
         try {
             return Response.ok().
-                    entity(addressManager.readAllAddresses()).
+                    entity(photoManager.readAllPhotos()).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -61,10 +61,10 @@ public class AddressResources {
 
     @GET
     @Path("{id}")
-    public Response getAddress(@PathParam("id") int id) {
+    public Response getPhoto(@PathParam("id") int id) {
         try {
             return Response.ok().
-                    entity(addressManager.readAddress(id)).
+                    entity(photoManager.readPhoto(id)).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -75,11 +75,11 @@ public class AddressResources {
     }
 
     @PUT
-    public Response putAddress(Address address) {
+    public Response putPhoto(Photo photo) {
         try {
-            addressManager.updateAddress(address);
+            photoManager.updatePhoto(photo);
             return Response.ok().
-                    entity(addressManager.updateAddress(address)).
+                    entity(photoManager.updatePhoto(photo)).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -91,10 +91,10 @@ public class AddressResources {
 
     @DELETE
     @Path("{id}")
-    public Response deleteAddress(@PathParam("id") int id) {
+    public Response deletePhoto(@PathParam("id") int id) {
         try {
             return Response.ok().
-                    entity(addressManager.deleteAddress(id)).
+                    entity(photoManager.deletePhoto(id)).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);

@@ -1,7 +1,7 @@
 package com.sumerge.program.rest;
 
-import com.sumerge.program.entities.Address;
-import com.sumerge.program.managers.AddressManager;
+import com.sumerge.program.entities.Department;
+import com.sumerge.program.managers.DepartmentManager;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -23,18 +23,18 @@ import javax.ws.rs.Produces;
 @RequestScoped
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
-@Path("address")
-public class AddressResources {
+@Path("department")
+public class DepartmentResources {
 
     private static final Logger LOGGER = Logger.getLogger(UserResources.class.getName());
     @EJB
-    private AddressManager addressManager;
+    private DepartmentManager departmentManager;
 
     @POST
-    public Response postAddress(Address address) {
+    public Response postDepartment(Department department) {
         try {
             return Response.ok().
-                    entity(addressManager.createAddress(address)).
+                    entity(departmentManager.createDepartment(department)).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -45,10 +45,10 @@ public class AddressResources {
     }
 
     @GET
-    public Response getAllAddresses() {
+    public Response getAllDepartments() {
         try {
             return Response.ok().
-                    entity(addressManager.readAllAddresses()).
+                    entity(departmentManager.readAllDepartments()).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -61,10 +61,10 @@ public class AddressResources {
 
     @GET
     @Path("{id}")
-    public Response getAddress(@PathParam("id") int id) {
+    public Response getDepartment(@PathParam("id") int id) {
         try {
             return Response.ok().
-                    entity(addressManager.readAddress(id)).
+                    entity(departmentManager.readDepartment(id)).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -75,11 +75,11 @@ public class AddressResources {
     }
 
     @PUT
-    public Response putAddress(Address address) {
+    public Response putDepartment(Department department) {
         try {
-            addressManager.updateAddress(address);
+            departmentManager.updateDepartment(department);
             return Response.ok().
-                    entity(addressManager.updateAddress(address)).
+                    entity(departmentManager.updateDepartment(department)).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -91,10 +91,10 @@ public class AddressResources {
 
     @DELETE
     @Path("{id}")
-    public Response deleteAddress(@PathParam("id") int id) {
+    public Response deleteDepartment(@PathParam("id") int id) {
         try {
             return Response.ok().
-                    entity(addressManager.deleteAddress(id)).
+                    entity(departmentManager.deleteDepartment(id)).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);

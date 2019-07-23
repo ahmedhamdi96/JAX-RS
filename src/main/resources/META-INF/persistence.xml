@@ -16,9 +16,6 @@
         <class>com.sumerge.program.entities.Photo</class>
         <class>com.sumerge.program.entities.Project</class>
 
-        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
-        <validation-mode>NONE</validation-mode>
-
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/PROGRAMDB"/>

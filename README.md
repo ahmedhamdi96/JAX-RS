@@ -9,6 +9,7 @@ Backend Web Development using Java EE
 ## Libraries
 
 * Maven: project build
-* JAXRS: web app and RESTful service
+* JAX-RS: web app and RESTful services
 * JASS: authentication and authorization
 * JPA: database management (MySQL)
+* JTA: transactions

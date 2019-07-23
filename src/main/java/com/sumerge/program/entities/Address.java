@@ -1,10 +1,11 @@
 package com.sumerge.program.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name= "ADDRESS", schema = "PROGRAMDB")
-public class Address {
+public class Address implements Serializable {
 
     @Id
     @Column(name="ADDRESSID")
