@@ -8,7 +8,6 @@ public class User implements Serializable {
     private String email;
 
     public User(){
-
     }
 
     public User(int id, String name, String email) {

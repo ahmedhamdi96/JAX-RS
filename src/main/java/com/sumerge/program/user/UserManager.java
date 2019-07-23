@@ -12,17 +12,16 @@ public class UserManager {
         }
     };
 
-    public String getUsers(){
-        String all_users = "";
-
-        for (User u:users){
-            all_users+=u.toString()+", ";
-        }
-
-        return all_users;
+    public User createUser(User user){
+        users.add(user);
+        return users.get(users.size()-1);
     }
 
-    public String getUser(int id){
+    public ArrayList<User> readUsers(){
+        return users;
+    }
+
+    public User readUser(int id){
         User user = null;
 
         for (User u:users){
@@ -32,26 +31,32 @@ public class UserManager {
             }
         }
 
-        return user.toString();
+        return user;
     }
 
-    public void deleteUser(int id){
+    public User updateUser(User user){
+        int index = 0;
+
+        for (int i=0; i< users.size(); i++){
+            if (users.get(i).getId() == user.getId()){
+                users.get(i).setName(user.getName());
+                users.get(i).setEmail(user.getEmail());
+                index = i;
+                break;
+            }
+        }
+
+        return users.get(index);
+    }
+
+    public String deleteUser(int id){
         for (User u:users){
             if (u.getId() == id){
                 users.remove(u);
                 break;
             }
         }
-    }
-
-    public void updateUser(User user){
-        for (int i=0; i< users.size(); i++){
-            if (users.get(i).getId() == user.getId()){
-                users.get(i).setName(user.getName());
-                users.get(i).setName(user.getName());
-                break;
-            }
-        }
+        return "User Deleted Successfully.";
     }
 
 }

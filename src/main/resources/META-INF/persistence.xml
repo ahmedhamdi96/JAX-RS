@@ -4,7 +4,28 @@
         version="2.1"
         xmlns="http://xmlns.jcp.org/xml/ns/persistence"
         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="MyPU" transaction-type="JTA">
+
+    <persistence-unit name="programdb-pu" transaction-type="JTA">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+        <class>com.sumerge.program.entities.Address</class>
+        <class>com.sumerge.program.entities.Department</class>
+        <class>com.sumerge.program.entities.Email</class>
+        <class>com.sumerge.program.entities.Employee</class>
+        <class>com.sumerge.program.entities.PhoneNumber</class>
+        <class>com.sumerge.program.entities.Photo</class>
+        <class>com.sumerge.program.entities.Project</class>
+
+        <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+        <validation-mode>NONE</validation-mode>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/PROGRAMDB"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+        </properties>
+
     </persistence-unit>
+
 </persistence>
