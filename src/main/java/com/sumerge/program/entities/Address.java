@@ -11,7 +11,7 @@ public class Address implements Serializable {
     @Column(name="ADDRESSID")
     private Integer addressID;
     @JoinColumn(name = "EMPID")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Employee employee;
     @Column(name="ADDLINE1")
     private String addLine1;
@@ -25,6 +25,8 @@ public class Address implements Serializable {
     private String country;
     @Column(name="POSTCODE")
     private String postcode;
+    @Transient
+    private String postcodeFormatted;
 
     public Integer getAddressID() {
         return addressID;
@@ -88,5 +90,13 @@ public class Address implements Serializable {
 
     public void setPostcode(String postcode) {
         this.postcode = postcode;
+    }
+
+    public String getPostcodeFormatted() {
+        return "FORMATTED POSTCODE: " + this.postcode;
+    }
+
+    public void setPostcodeFormatted(String postcodeFormatted) {
+        this.postcodeFormatted = postcodeFormatted;
     }
 }

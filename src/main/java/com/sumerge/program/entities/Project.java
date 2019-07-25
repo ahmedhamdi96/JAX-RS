@@ -1,5 +1,7 @@
 package com.sumerge.program.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -21,9 +23,10 @@ public class Project {
     @Column(name="DESCRIPTION")
     private String description;
     @JoinTable(name = "PROJECTMEMBER", schema = "PROGRAMDB",
-            joinColumns = {@JoinColumn(name = "EMPID")},
-            inverseJoinColumns = {@JoinColumn(name = "PROJID")})
-    @ManyToMany
+            joinColumns = {@JoinColumn(name = "PROJID")},
+            inverseJoinColumns = {@JoinColumn(name = "EMPID")})
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Collection<Employee> employees;
 
     public String getProjID() {

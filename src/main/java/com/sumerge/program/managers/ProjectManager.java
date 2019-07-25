@@ -21,7 +21,7 @@ public class ProjectManager {
                 getResultList();
     }
 
-    public Project readProject(Integer projID){
+    public Project readProject(String projID){
         Project project = entityManager.find( Project.class, projID);
         return project;
     }
@@ -37,7 +37,7 @@ public class ProjectManager {
         return entityManager.merge(projectDB);
     }
 
-    public String deleteProject(Integer projID){
+    public String deleteProject(String projID){
         Project project = entityManager.find( Project.class, projID);
         entityManager.remove(project);
 

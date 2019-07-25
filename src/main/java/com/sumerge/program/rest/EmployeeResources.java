@@ -58,13 +58,27 @@ public class EmployeeResources {
         }
     }
 
-
     @GET
     @Path("{id}")
-    public Response getEmployee(@PathParam("id") int id) {
+    public Response getEmployee(@PathParam("id") String id) {
         try {
             return Response.ok().
                     entity(employeeManager.readEmployee(id)).
+                    build();
+        } catch (Exception e) {
+            LOGGER.log(SEVERE, e.getMessage(), e);
+            return Response.serverError().
+                    entity(e.getClass() + ": " + e.getMessage()).
+                    build();
+        }
+    }
+
+    @GET
+    @Path("commonName")
+    public Response getAllEmployeesByCommonName(String commonName) {
+        try {
+            return Response.ok().
+                    entity(employeeManager.readAllEmployeesByCommonName(commonName)).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -91,7 +105,7 @@ public class EmployeeResources {
 
     @DELETE
     @Path("{id}")
-    public Response deleteEmployee(@PathParam("id") int id) {
+    public Response deleteEmployee(@PathParam("id") String id) {
         try {
             return Response.ok().
                     entity(employeeManager.deleteEmployee(id)).

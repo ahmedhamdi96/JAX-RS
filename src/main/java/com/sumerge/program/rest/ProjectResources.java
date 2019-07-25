@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static java.util.logging.Level.SEVERE;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -58,13 +59,42 @@ public class ProjectResources {
         }
     }
 
+    @GET
+    @Path("employees")
+    public Response getAllProjectsEmployees() {
+        try {
+            return Response.ok().
+                    entity(projectManager.readAllProjects().stream().map(x->x.getEmployees()).collect(Collectors.toList())).
+                    build();
+        } catch (Exception e) {
+            LOGGER.log(SEVERE, e.getMessage(), e);
+            return Response.serverError().
+                    entity(e.getClass() + ": " + e.getMessage()).
+                    build();
+        }
+    }
 
     @GET
     @Path("{id}")
-    public Response getProject(@PathParam("id") int id) {
+    public Response getProject(@PathParam("id") String id) {
         try {
             return Response.ok().
                     entity(projectManager.readProject(id)).
+                    build();
+        } catch (Exception e) {
+            LOGGER.log(SEVERE, e.getMessage(), e);
+            return Response.serverError().
+                    entity(e.getClass() + ": " + e.getMessage()).
+                    build();
+        }
+    }
+
+    @GET
+    @Path("{id}/employees")
+    public Response getProjectEmployees(@PathParam("id") String id) {
+        try {
+            return Response.ok().
+                    entity(projectManager.readProject(id).getEmployees()).
                     build();
         } catch (Exception e) {
             LOGGER.log(SEVERE, e.getMessage(), e);
@@ -91,7 +121,7 @@ public class ProjectResources {
 
     @DELETE
     @Path("{id}")
-    public Response deleteProject(@PathParam("id") int id) {
+    public Response deleteProject(@PathParam("id") String id) {
         try {
             return Response.ok().
                     entity(projectManager.deleteProject(id)).

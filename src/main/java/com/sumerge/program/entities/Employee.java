@@ -1,10 +1,17 @@
 package com.sumerge.program.entities;
 
+import com.sumerge.program.listeners.EmployeeListener;
+
 import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+//@NamedQuery(
+//        name="findAllEmployeesByCommonName",
+//        queryString="SELECT OBJECT(emp) FROM Employee emp WHERE emp.commonName = :commonName"
+//)
 @Table(name="EMPLOYEE", schema = "PROGRAMDB")
+@EntityListeners(value=EmployeeListener.class)
 public class Employee {
 
     @Id
@@ -24,9 +31,9 @@ public class Employee {
     @Column(name="NAMETITLE")
     private String nameTitle;
     @JoinTable(name = "PROJECTMEMBER", schema = "PROGRAMDB",
-            joinColumns = {@JoinColumn(name = "PROJID")},
-            inverseJoinColumns = {@JoinColumn(name = "EMPID")})
-    @ManyToMany
+            joinColumns = {@JoinColumn(name = "EMPID")},
+            inverseJoinColumns = {@JoinColumn(name = "PROJID")})
+    @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Project> projects;
 
     public String getEmpId() {
@@ -92,4 +99,5 @@ public class Employee {
     public void setProjects(Collection<Project> projects) {
         this.projects = projects;
     }
+
 }

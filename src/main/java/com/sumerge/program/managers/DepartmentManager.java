@@ -21,7 +21,7 @@ public class DepartmentManager {
                 getResultList();
     }
 
-    public Department readDepartment(Integer deptCode){
+    public Department readDepartment(String deptCode){
         Department department = entityManager.find( Department.class, deptCode);
         return department;
     }
@@ -33,7 +33,7 @@ public class DepartmentManager {
         return entityManager.merge(departmentDB);
     }
 
-    public String deleteDepartment(Integer deptCode){
+    public String deleteDepartment(String deptCode){
         Department department = entityManager.find( Department.class, deptCode);
         entityManager.remove(department);
 

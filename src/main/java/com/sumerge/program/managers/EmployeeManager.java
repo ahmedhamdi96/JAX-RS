@@ -21,9 +21,16 @@ public class EmployeeManager {
                 getResultList();
     }
 
-    public Employee readEmployee(Integer empId){
+    public Employee readEmployee(String empId){
         Employee employee = entityManager.find( Employee.class, empId);
         return employee;
+    }
+
+    public Collection<Employee> readAllEmployeesByCommonName(String commonName) {
+        Query queryEmployeesByCommonName = entityManager.createNamedQuery("findAllEmployeesByFirstName");
+        queryEmployeesByCommonName.setParameter("commonName", commonName);
+        Collection employees = queryEmployeesByCommonName.getResultList();
+        return employees;
     }
 
     public Employee updateEmployee(Employee employeeNew){
@@ -38,7 +45,7 @@ public class EmployeeManager {
         return entityManager.merge(employeeDB);
     }
 
-    public String deleteEmployee(Integer empId){
+    public String deleteEmployee(String empId){
         Employee employee = entityManager.find( Employee.class, empId);
         entityManager.remove(employee);
 

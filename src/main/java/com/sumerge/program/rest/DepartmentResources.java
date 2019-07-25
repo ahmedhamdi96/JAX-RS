@@ -61,7 +61,7 @@ public class DepartmentResources {
 
     @GET
     @Path("{id}")
-    public Response getDepartment(@PathParam("id") int id) {
+    public Response getDepartment(@PathParam("id") String id) {
         try {
             return Response.ok().
                     entity(departmentManager.readDepartment(id)).
@@ -91,7 +91,7 @@ public class DepartmentResources {
 
     @DELETE
     @Path("{id}")
-    public Response deleteDepartment(@PathParam("id") int id) {
+    public Response deleteDepartment(@PathParam("id") String id) {
         try {
             return Response.ok().
                     entity(departmentManager.deleteDepartment(id)).
